@@ -1,4 +1,4 @@
-package controllers;
+package com.fredrikkodar.blogwebservice.controllers;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "*")
 public class MainController {
 
-        @GetMapping("")
-        public String sayHelloWorld() {
-            return "Hello World";
-        }
+    @GetMapping("")
+    public String sayHelloWorld() {
+        return "Hello World";
+    }
 }
