@@ -6,6 +6,7 @@ import com.fredrikkodar.blogwebservice.models.User;
 import com.fredrikkodar.blogwebservice.repository.ContentRepository;
 import com.fredrikkodar.blogwebservice.repository.PostRepository;
 import com.fredrikkodar.blogwebservice.service.PostService;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
