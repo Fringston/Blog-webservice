@@ -40,7 +40,11 @@ public class PostController {
     public ResponseEntity<Post> updatePost(@PathVariable Long id, @RequestBody Post post) {
         post.setId(id);
         Post updatedPost = postService.updatePost(post);
-        return ResponseEntity.ok(updatedPost);
+        if (updatedPost != null) {
+            return ResponseEntity.ok(updatedPost);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")
