@@ -21,7 +21,7 @@ public class UserController {
     @GetMapping("")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
+        return ResponseEntity.status(200).body(users);
     }
 
     @GetMapping("/{id}")
@@ -29,6 +29,12 @@ public class UserController {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
+
+    /*@GetMapping("/current")
+    public ResponseEntity<User> getCurrentInUser() {
+        User loggedInUser = userService.getUserById();
+        return ResponseEntity.ok(loggedInUser);
+    }*/
 
     @PostMapping("/register")
     public ResponseEntity<User> createUser(@RequestBody User user) {
