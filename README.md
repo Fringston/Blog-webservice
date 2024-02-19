@@ -2,37 +2,51 @@
 
 ## Description
 
-This project works as a backend server for a web-shop. It's a Spring Boot application that uses Spring Security to authenticate users and OAuth2 to authorize them.
+This project works as a backend server for a blog-platform. It's a Spring Boot application.
 The application is connected to a MySQL database and uses Spring Data JPA to access the data.
 
-The application will automatically create an admin account if it does not already exist. The username is *admin* and the password is *password*.
+The application and the database are hosted on a AWS EC2-server.
 
-**JavaDoc** can be found here: *WebShopServie/index.HTML*
 
 ---
 
-## Functionality
-### User functionality
-**All users can:**
-- Browse through articles
-- Register an account
-- Login to their account
+# Endpoints
 
-**Logged-in users can:**
-- Browse through articles
-- Add articles to their shopping cart
-- Change article quantity
-- Place orders
-- See their order history
+## User Endpoints:
 
+### GET /user
+- Returns a list of all users.
 
-### Admin functionality
-**Admins users can:**
-- Do everything a regular user can do
-- Create, read, update and delete articles
-- See all current shopping carts
-- See all order history
-- See all users
+### GET /user/{id}
+- Returns a user with the specified id.
+
+### POST /user/register
+- Adds a new user to the database.
+
+### POST /user/login
+- Logs in a user.
+
+### DELETE /user/{id}
+- Deletes a user with the specified id.
+
+---
+
+## Post Endpoints:
+
+### GET /post
+- Returns a list of all posts.
+
+### GET /post/{id}
+- Returns a post with the specified id.
+
+### POST /post
+- Adds a new post to the database.
+
+### PUT /post/{id}
+- Updates a post with the specified id.
+
+### DELETE /post/{id}
+- Deletes a post with the specified id.
 
 ---
 
@@ -55,11 +69,16 @@ Before you can start this project, you must follow these steps:
 - Ensure that the *schema name*, *username*, and *password* in the application.properties file match your MySQL setup.
 
 ### 2. Start the WebShopService application:
-- Open your IDE and run the WebShopServiceApplication class to start the application.
+
 
 ### 3. Start the client application:
-- Open your IDE and run the Main class to start the application.
-- Follow the instructions in the console to use the web-shop.
+
+
+---
+
+## Testing
+
+The application uses JUnit 5 and Mockito for testing. The tests can be found in the *src/test* folder.
 
 ---
 
@@ -68,18 +87,9 @@ Before you can start this project, you must follow these steps:
 - Spring Web
 - Lombok
 - Spring Data JPA
-- MySQL Driver
-- Spring Security
-- OAuth2 Client
-- Spring Boot DevTools
-- org.json
-
----
-
-## Credits
-
-### Collaborators in this project:
-
+- MySQL 
+- JUnit 5
+- Mockito
 
 ---
 
