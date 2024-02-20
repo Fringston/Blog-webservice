@@ -27,18 +27,32 @@ public class PostService {
     }
 
     public Post createPost(Post post) {
-        Content content = contentRepository.save(post.getContent());
-        post.setContent(content);
+        Content savedContent = contentRepository.save(post.getContent());
+        post.setContent(savedContent);
         return postRepository.save(post);
     }
 
-    public Post updatePost(Post post) {
-        Content content = contentRepository.save(post.getContent());
-        post.setContent(content);
+    public Post updatePost(Long id, Post postDetails) {
+        Post post = postRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Post with id " + id + " does not exist"));
+
+        if (postDetails.getTitle() != null) {
+            post.setTitle(postDetails.getTitle());
+        }
+        if (postDetails.getContent() != null) {
+            post.getContent().setText(postDetails.getContent().getText());
+        }
+        if (postDetails.getCategory() != null) {
+            post.setCategory(postDetails.getCategory());
+        }
+
         return postRepository.save(post);
     }
-
     public void deletePost(Long id) {
-        postRepository.deleteById(id);
+        if (postRepository.existsById(id)) {
+            postRepository.deleteById(id);
+        }
+        else {
+            throw new IllegalArgumentException("Post with id " + id + " does not exist");
+        }
     }
 }

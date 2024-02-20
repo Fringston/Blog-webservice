@@ -6,7 +6,6 @@ import com.fredrikkodar.blogwebservice.models.User;
 import com.fredrikkodar.blogwebservice.repository.ContentRepository;
 import com.fredrikkodar.blogwebservice.repository.PostRepository;
 import com.fredrikkodar.blogwebservice.service.PostService;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,7 +21,7 @@ import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
-class PostTests {
+public class PostServiceTest {
 
     @Mock
     private PostRepository postRepository;
@@ -38,17 +37,13 @@ class PostTests {
     @BeforeEach
     public void setUp() {
         content = new Content();
-        content.setId(1L);
         content.setText("Test Content");
 
         user = new User();
-        user.setId(1L);
         user.setUsername("Test User");
         user.setPassword("Test Password");
-        user.setAge(20);
 
         post = new Post();
-        post.setId(1L);
         post.setTitle("Test Title");
         post.setContent(content);
         post.setUser(user);
@@ -57,7 +52,7 @@ class PostTests {
     }
 
     @Test
-    void getAllPosts() {
+    void getAllPostsTest() {
         // Skapa en lite med alla Post-objekt
         List<Post> posts = new ArrayList<>();
         posts.add(post);
@@ -76,7 +71,7 @@ class PostTests {
     }
 
     @Test
-    void getPostById() {
+    void getPostByIdTest() {
         // Stubba findById-metoden på postRepository för att returnera ett Post-objekt
         when(postRepository.findById(1L)).thenReturn(java.util.Optional.of(post));
 
@@ -91,7 +86,7 @@ class PostTests {
     }
 
     @Test
-    void createPost() {
+    void createPostTest() {
         // Stubba save-metoden på contentRepository för att returnera ett Content-objekt
         when(contentRepository.save(content)).thenReturn(content);
 
@@ -112,36 +107,51 @@ class PostTests {
     }
 
     @Test
-    void updatePost() {
-        // Ändra något i Post-objektet
-        post.setTitle("Updated Title");
+    void updatePostTest() {
+        // Skapa ett nytt Post-objekt som representerar det uppdaterade inlägget
+        Post updatedPost = new Post();
+        updatedPost.setTitle("Updated Title");
+        updatedPost.setContent(content);
+        updatedPost.setUser(user);
+        updatedPost.setCategory("Updated Category");
 
-        // Stubba save-metoden på contentRepository för att returnera ett Content-objekt
-        when(contentRepository.save(content)).thenReturn(content);
+        // Stubba findById-metoden på postRepository för att returnera det ursprungliga Post-objektet
+        when(postRepository.findById(1L)).thenReturn(java.util.Optional.of(post));
 
-        // Stubba save-metoden på postRepository för att returnera ett Post-objekt
-        when(postRepository.save(post)).thenReturn(post);
+        // Stubba save-metoden på postRepository för att returnera ett Post-objekt när det kallas med vilket Post-objekt som helst
+        when(postRepository.save(any(Post.class))).thenAnswer(invocation -> invocation.getArgument(0));
 
         // Anropa updatePost-metoden på postService
-        Post returnedPost = postService.updatePost(post);
+        Post returnedPost = postService.updatePost(1L, updatedPost);
 
-        // Verifiera att den returnerar samma Post-objekt som skapades
-        assertEquals("Updated Title", returnedPost.getTitle());
+        // Verifiera att det returnerade Post-objektet har de uppdaterade fälten
+        assertEquals(updatedPost.getTitle(), returnedPost.getTitle());
+        assertEquals(updatedPost.getContent(), returnedPost.getContent());
+        assertEquals(updatedPost.getUser(), returnedPost.getUser());
+        assertEquals(updatedPost.getCategory(), returnedPost.getCategory());
 
-        // Verifiera att save-metoden på contentRepository anropas exakt en gång
-        verify(contentRepository, times(1)).save(content);
+        // Verifiera att det returnerade Post-objektet har samma datum som det ursprungliga Post-objektet
+        assertEquals(post.getDate(), returnedPost.getDate());
+
+        // Verifiera att findById-metoden på postRepository anropas exakt en gång
+        verify(postRepository, times(1)).findById(1L);
 
         // Verifiera att save-metoden på postRepository anropas exakt en gång
-        verify(postRepository, times(1)).save(post);
+        verify(postRepository, times(1)).save(any(Post.class));
     }
 
     @Test
-    void deletePost() {
+    void deletePostTest() {
+        // Stubba existsById-metoden på postRepository för att returnera true
+        when(postRepository.existsById(1L)).thenReturn(true);
+
         // Anropa deletePost-metoden på postService
         postService.deletePost(1L);
+
+        // Verifiera att existsById-metoden på postRepository anropas exakt en gång
+        verify(postRepository, times(1)).existsById(1L);
 
         // Verifiera att deleteById-metoden på postRepository anropas exakt en gång
         verify(postRepository, times(1)).deleteById(1L);
     }
-
 }
