@@ -18,45 +18,19 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("")
-    public ResponseEntity<List<User>> getAllUsers() {
-        List<User> users = userService.getAllUsers();
-        return ResponseEntity.status(200).body(users);
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return ResponseEntity.ok(user);
     }
 
-    /*@GetMapping("/current")
-    public ResponseEntity<User> getCurrentInUser() {
-        User loggedInUser = userService.getUserById();
-        return ResponseEntity.ok(loggedInUser);
-    }*/
-
-    @PostMapping("/register")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User newUser = userService.registerUser(user);
-        return ResponseEntity.ok(newUser);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<User> logInUser(@RequestBody Map<String, String> credentials) {
-        String username = credentials.get("username");
-        String password = credentials.get("password");
-        User user = userService.logInUser(username, password);
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-    }
-
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        try {
+            userService.deleteUser(id);
+            return ResponseEntity.ok("User deleted");
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
     }
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Data
 @Table(name="posts")
 public class Post {
 
@@ -27,4 +26,43 @@ public class Post {
 
     private String category;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 }

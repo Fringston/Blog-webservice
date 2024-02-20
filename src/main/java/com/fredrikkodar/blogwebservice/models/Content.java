@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
-@Data
 @Table(name="content")
 public class Content {
 
@@ -14,5 +13,13 @@ public class Content {
     private Long id;
 
     private String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
 }
