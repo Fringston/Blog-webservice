@@ -1,20 +1,19 @@
 # Blog-webservice
 ## Description
 
-This project works as a backend server for a blog-platform. 
+This project is a backend server for a blog-platform. 
 It's a Spring Boot application that uses Spring Security to authenticate users and OAuth2 to authorize them.
 The application is connected to a MySQL database and uses Spring Data JPA to access the data.
 
-The application and the database are hosted on a AWS EC2-server.
+The server-application and the database are both hosted on a AWS EC2-server.
 
-The application will automatically create an admin account if it does not already exist. 
-The username is admin and the password is password.
+Is you runt the application locally, it will automatically create an admin account if it does not already exist. 
+The username is *admin* and the password is *password*.
 
-API-documentation can be found here: 
+API-documentation can be found here:
+
 
 ---
-
-# Functionality
 
 ## Functionality
 ### User functionality
@@ -79,7 +78,7 @@ API-documentation can be found here:
 
 ## Installation
 
-Before you can start this project, you must follow these steps:
+ These steps are only necessary if you want to run this project locally.
 
 - Download and install IntelliJ IDEA or your preferred IDE.
 - Download and install MySQL and MySQL Workbench.
@@ -87,7 +86,7 @@ Before you can start this project, you must follow these steps:
 
 ---
 
-## Usage
+## Usage (localhost)
 
 ### 1. Set up the MySQL database:
 - Open MySQL Workbench.
@@ -97,12 +96,22 @@ Before you can start this project, you must follow these steps:
 
 ### 2. Start the Blog-webservice application:
 
-If you want to send requests to http://localhost:5000 you can start the application by running the BlogWebserviceApplication class in your IDE.
-But if you want to send requests to the AWS EC2-server, you don't need to start the application, it's already running on the server.
+Start the application by running the BlogWebserviceApplication class in your IDE.
 
-### 3. Send requests to the server from Postman for example:
+### 3. Send requests to the server from Postman:
 
-You can send request either to http://localhost:5000 or the AWS EC2-server at: http://ec2-3-21-233-1.us-east-2.compute.amazonaws.com:5000
+You can now send request to http://localhost:5000 from Postman.
+For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
+http://localhost:5000/swagger-ui.html
+
+
+## Usage (AWS EC2-server)
+
+### 1. Send requests to the server from Postman:
+If you want to send requests to the AWS EC2-server, you don't need to start the application, it's already running on the server.
+
+Just open Postman and send request to http://ec2-3-21-233-1.us-east-2.compute.amazonaws.com:5000
+
 For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
 http://localhost:5000/swagger-ui.html
 
@@ -136,14 +145,12 @@ The project uses Github Actions for continuous integration. The workflow can be 
 Each time a push is made to the dev branch, the workflow will run the tests and build the application.
 
 ### AWS Pipeline
-The project also uses AWS Pipeline for continuous deployment.
+The project uses AWS Pipeline for continuous deployment.
 Each time a push is made to the main branch, the pipeline will deploy the application to the AWS EC2-server.
 The pipeline consists of 3 stages:
 - Source (Source: Github)
 - Build (Build: AWS CodeBuild)
 - Deploy (Deploy: AWS Beanstalk)
-
-
 
 ---
 
