@@ -132,7 +132,7 @@ The application uses JUnit 5 and Mockito for testing. The tests can be found in 
 
 ## CI/CD
 ### Github Actions
-The project uses Github Actions for continuous integration. The workflow can be found in the .github/workflows folder.
+The project uses Github Actions for continuous integration. The workflow can be found in the *.github/workflows* folder.
 Each time a push is made to the dev branch, the workflow will run the tests and build the application.
 
 ### AWS Pipeline
