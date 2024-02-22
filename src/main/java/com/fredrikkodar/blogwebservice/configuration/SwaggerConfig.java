@@ -1,67 +1,52 @@
 package com.fredrikkodar.blogwebservice.configuration;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeIn;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.info.Contact;
+import io.swagger.v3.oas.annotations.info.Info;
+import io.swagger.v3.oas.annotations.info.License;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.AuthorizationCodeGrantBuilder;
-import springfox.documentation.builders.OAuthBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.AuthorizationScope;
-import springfox.documentation.service.GrantType;
-import springfox.documentation.service.TokenEndpoint;
-import springfox.documentation.service.TokenRequestEndpoint;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger.web.SecurityConfiguration;
-import springfox.documentation.swagger.web.SecurityConfigurationBuilder;
+import io.swagger.v3.oas.annotations.servers.Server;
+import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
+@OpenAPIDefinition(
+        info = @Info(
+                contact = @Contact(
+                        name = "Fredrik",
+                        email = "frdk@live.se"
+                ),
+                description = "OpenApi documentation for Spring Security",
+                title = "OpenApi specification - Fredrik",
+                version = "1.0",
+                license = @License(
+                        name = "MIT- License"
+                )
+        ),
+        servers = {
+                @Server(
+                        url = "http://localhost:5000",
+                        description = "Local server"
+                ),
+                @Server(
+                        url = "http://blog-webservice-env.eba-pycug5mz.eu-north-1.elasticbeanstalk.com",
+                        description = "Production server"
+                )
+        },
+        security = {
+                @SecurityRequirement(
+                        name = "bearerAuth")
 
-import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_ID;
-import static org.springframework.security.oauth2.core.endpoint.OAuth2ParameterNames.CLIENT_SECRET;
-
-
-@Configuration
+        }
+)
+@SecurityScheme(
+        name = "bearerAuth",
+        description = "Connect to get the JWT token",
+        scheme = "bearer",
+        type = SecuritySchemeType.HTTP,
+        bearerFormat = "JTW",
+        in = SecuritySchemeIn.HEADER
+)
 public class SwaggerConfig {
-    @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build()
-                .securitySchemes(Arrays.asList(securityScheme()))
-                .securityContexts(Arrays.asList(securityContext()));
-    }
-    @Bean
-    public SecurityConfiguration security() {
-        return SecurityConfigurationBuilder.builder()
-                .clientId(CLIENT_ID)
-                .clientSecret(CLIENT_SECRET)
-                .scopeSeparator(" ")
-                .useBasicAuthenticationWithAccessCodeGrant(true)
-                .build();
-    }
-    private SecurityScheme securityScheme() {
-        GrantType grantType = new AuthorizationCodeGrantBuilder()
-                .tokenEndpoint(new TokenEndpoint(AUTH_SERVER + "/token", "oauthtoken"))
-                .tokenRequestEndpoint(
-                        new TokenRequestEndpoint(AUTH_SERVER + "/authorize", CLIENT_ID, CLIENT_SECRET))
-                .build();
-
-        SecurityScheme oauth = new OAuthBuilder().name("spring_oauth")
-                .grantTypes(Arrays.asList(grantType))
-                .scopes(Arrays.asList(scopes()))
-                .build();
-        return oauth;
-    }
-    private AuthorizationScope[] scopes() {
-        AuthorizationScope[] scopes = {
-                new AuthorizationScope("read", "for read operations"),
-                new AuthorizationScope("write", "for write operations"),
-                new AuthorizationScope("foo", "Access foo API") };
-        return scopes;
-    }
-
 }

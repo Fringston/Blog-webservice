@@ -2,6 +2,7 @@ package com.fredrikkodar.blogwebservice.controllers;
 
 import com.fredrikkodar.blogwebservice.models.Post;
 import com.fredrikkodar.blogwebservice.service.PostService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/post")
 @CrossOrigin(origins = "*")
+@Tag(name = "Post", description = "Post API")
 public class PostController {
 
     @Autowired

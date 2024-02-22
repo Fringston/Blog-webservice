@@ -7,10 +7,10 @@ The application is connected to a MySQL database and uses Spring Data JPA to acc
 
 The server-application and the database are both hosted on a AWS EC2-server.
 
-Is you runt the application locally, it will automatically create an admin account if it does not already exist. 
+If you runt the application locally, it will automatically create an admin account if it does not already exist. 
 The username is *admin* and the password is *password*.
 
-API-documentation can be found here:
+API-documentation can be found here: http://localhost:5000/swagger-ui/index.html
 
 
 ---
@@ -33,46 +33,6 @@ API-documentation can be found here:
 **Admins users can:**
 - Do everything a regular user can do. + 
 - See all users
-
----
-
-# Endpoints
-
-## User Endpoints:
-
-### GET /user
-- Returns a list of all users.
-
-### GET /user/{id}
-- Returns a user with the specified id.
-
-### POST /user/register
-- Adds a new user to the database.
-
-### POST /user/login
-- Logs in a user.
-
-### DELETE /user/{id}
-- Deletes a user with the specified id.
-
----
-
-## Post Endpoints:
-
-### GET /post
-- Returns a list of all posts.
-
-### GET /post/{id}
-- Returns a post with the specified id.
-
-### POST /post
-- Adds a new post to the database.
-
-### PUT /post/{id}
-- Updates a post with the specified id.
-
-### DELETE /post/{id}
-- Deletes a post with the specified id.
 
 ---
 
@@ -102,7 +62,7 @@ Start the application by running the BlogWebserviceApplication class in your IDE
 
 You can now send request to http://localhost:5000 from Postman.
 For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
-http://localhost:5000/swagger-ui.html
+http://localhost:5000/swagger-ui/index.html
 
 
 ## Usage (AWS EC2-server)
@@ -113,7 +73,7 @@ If you want to send requests to the AWS EC2-server, you don't need to start the 
 Just open Postman and send request to http://ec2-3-21-233-1.us-east-2.compute.amazonaws.com:5000
 
 For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
-http://localhost:5000/swagger-ui.html
+http://localhost:5000/swagger-ui/index.html
 
 ---
 
