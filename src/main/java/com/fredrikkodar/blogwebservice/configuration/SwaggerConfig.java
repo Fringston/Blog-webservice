@@ -13,12 +13,8 @@ import org.springframework.stereotype.Service;
 
 @OpenAPIDefinition(
         info = @Info(
-                contact = @Contact(
-                        name = "Fredrik",
-                        email = "frdk@live.se"
-                ),
                 description = "OpenApi documentation for Spring Security",
-                title = "OpenApi specification - Fredrik",
+                title = "API documentation - blog-webservice",
                 version = "1.0",
                 license = @License(
                         name = "MIT- License"
