@@ -11,6 +11,7 @@ If you runt the application locally, it will automatically create an admin accou
 The username is *admin* and the password is *password*.
 
 API-documentation can be found here: http://localhost:5000/swagger-ui/index.html
+Or here: http://blog-webservice-env.eba-pycug5mz.eu-north-1.elasticbeanstalk.com/swagger-ui/index.html
 
 
 ---
