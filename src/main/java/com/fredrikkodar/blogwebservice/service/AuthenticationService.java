@@ -6,6 +6,7 @@ import com.fredrikkodar.blogwebservice.models.User;
 import com.fredrikkodar.blogwebservice.repository.RoleRepository;
 import com.fredrikkodar.blogwebservice.repository.UserRepository;
 import jakarta.transaction.Transactional;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,6 +31,7 @@ public class AuthenticationService {
     @Autowired
     private UserRepository userRepository;
 
+    @Setter
     @Autowired
     private RoleRepository roleRepository;
 
@@ -57,10 +59,6 @@ public class AuthenticationService {
         } catch (AuthenticationException e) {
             return new LoginResponseDTO(null, "");
         }
-    }
-
-    public void setRoleRepository(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
     }
 
 }
