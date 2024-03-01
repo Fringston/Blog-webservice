@@ -63,7 +63,7 @@ Start the application by running the BlogWebserviceApplication class in your IDE
 
 You can now send request to http://localhost:5000 from Postman.
 For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
-http://localhost:5000/swagger-ui/index.html
+http://localhost:5000/swagger-ui/index.html or: http://blog-webservice-env.eba-pycug5mz.eu-north-1.elasticbeanstalk.com/swagger-ui/index.html
 
 
 ## Usage (AWS EC2-server)
@@ -74,7 +74,7 @@ If you want to send requests to the AWS EC2-server, you don't need to start the 
 Just open Postman and send request to http://ec2-3-21-233-1.us-east-2.compute.amazonaws.com:5000
 
 For information on what endpoints are available, and how the request should look like, you can use the Swagger UI at:
-http://localhost:5000/swagger-ui/index.html
+http://localhost:5000/swagger-ui/index.html or: http://blog-webservice-env.eba-pycug5mz.eu-north-1.elasticbeanstalk.com/swagger-ui/index.html
 
 ---
 
@@ -102,14 +102,14 @@ The application uses JUnit 5 and Mockito for testing. The tests can be found in 
 
 ## CI/CD
 ### Github Actions
-The project uses Github Actions for continuous integration. The workflow can be found in the *.github/workflows* folder.
+The project uses GitHub Actions for continuous integration. The workflow can be found in the *.github/workflows* folder.
 Each time a push is made to the dev branch, the workflow will run the tests and build the application.
 
 ### AWS Pipeline
 The project uses AWS Pipeline for continuous deployment.
 Each time a push is made to the main branch, the pipeline will deploy the application to the AWS EC2-server.
 The pipeline consists of 3 stages:
-- Source (Source: Github)
+- Source (Source: GitHub)
 - Build (Build: AWS CodeBuild)
 - Deploy (Deploy: AWS Beanstalk)
 
